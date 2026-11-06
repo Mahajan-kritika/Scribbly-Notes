@@ -1,0 +1,9 @@
+{
+  "name": "Scribbly Notes",
+  "short_name": "Scribbly",
+  "description": "A private, local-first handwritten notebook studio.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f4ec",
+  "theme_color": "#f7f4ec"
+}

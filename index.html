@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f4ec" />
+    <meta name="description" content="Turn typed notes into personal handwritten-style notebook pages, right in your browser." />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Scribbly Notes — Your Notes, Your Handwriting</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Scribbly Notes home">
+          <span class="brand-mark" aria-hidden="true">s.</span>
+          <span class="brand-name">scribbly <b>notes</b></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a class="nav-link active" href="#home">Home</a>
+          <button class="nav-link" id="myNotesButton" type="button">My Notes</button>
+          <button class="nav-link" id="settingsButton" type="button">Settings</button>
+        </nav>
+        <div class="privacy-chip"><span></span> Private by design</div>
+      </header>
+
+      <main id="home">
+        <section class="intro">
+          <div class="intro-copy">
+            <p class="eyebrow"><span class="sparkle">✳</span> YOUR PERSONAL NOTEBOOK STUDIO</p>
+            <h1>Your Notes, <em>Your Handwriting.</em></h1>
+            <p class="intro-subtitle">Turn typed notes into beautiful handwritten-style notebook pages in seconds.</p>
+          </div>
+          <div class="intro-note" aria-hidden="true">
+            <span class="note-doodle">✎</span>
+            <span>made for your<br />next big idea</span>
+            <span class="note-underline"></span>
+          </div>
+        </section>
+
+        <section class="workspace" aria-label="Notebook editor">
+          <section class="editor-panel panel">
+            <div class="panel-heading editor-heading">
+              <div>
+                <p class="section-kicker">01 — WRITE IT OUT</p>
+                <h2>Your notes</h2>
+              </div>
+              <div class="editor-actions">
+                <button class="icon-button" id="undoButton" type="button" aria-label="Undo" title="Undo">↶</button>
+                <button class="icon-button" id="redoButton" type="button" aria-label="Redo" title="Redo">↷</button>
+                <button class="text-button" id="clearButton" type="button">Clear all</button>
+              </div>
+            </div>
+
+            <div class="format-toolbar" role="toolbar" aria-label="Text formatting">
+              <button class="format-button" id="boldButton" type="button" aria-label="Bold" title="Bold"><b>B</b></button>
+              <button class="format-button italic-button" id="italicButton" type="button" aria-label="Italic" title="Italic"><i>I</i></button>
+              <span class="toolbar-divider"></span>
+              <button class="format-button heading-button" id="headingButton" type="button" title="Format selection as heading">H</button>
+              <span class="toolbar-divider"></span>
+              <label class="sr-only" for="fontSize">Font size</label>
+              <select id="fontSize" class="compact-select" aria-label="Font size">
+                <option value="18">18</option>
+                <option value="20">20</option>
+                <option value="22" selected>22</option>
+                <option value="24">24</option>
+                <option value="26">26</option>
+                <option value="28">28</option>
+              </select>
+              <span class="size-unit">px</span>
+              <span class="toolbar-divider"></span>
+              <label class="sr-only" for="textAlignment">Text alignment</label>
+              <select id="textAlignment" class="compact-select alignment-select" aria-label="Text alignment">
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+              </select>
+              <span class="toolbar-spacer"></span>
+              <span class="history-label">EDIT</span>
+            </div>
+
+            <label class="sr-only" for="noteInput">Type or paste your notes</label>
+            <textarea id="noteInput" spellcheck="false" placeholder="Start with a thought, a lesson, or a little reminder..."></textarea>
+            <div class="editor-footer">
+              <span><b id="wordCount">0</b> words <i>·</i> <b id="charCount">0</b> characters</span>
+              <span class="autosave-state" id="autosaveState"><span class="save-dot"></span> Saved on this device</span>
+            </div>
+            <div class="editor-tip"><span>✦</span> Tip: Use <code>#</code> for headings and <code>-</code> for lists. Your notes never leave this device.</div>
+          </section>
+
+          <section class="preview-panel panel">
+            <div class="preview-heading">
+              <div>
+                <p class="section-kicker">02 — SEE IT COME TO LIFE</p>
+                <h2>Your notebook</h2>
+              </div>
+              <div class="preview-controls">
+                <button class="zoom-button" id="zoomOutButton" type="button" aria-label="Zoom out">−</button>
+                <span id="zoomLabel">100%</span>
+                <button class="zoom-button" id="zoomInButton" type="button" aria-label="Zoom in">+</button>
+              </div>
+            </div>
+
+            <div class="customization-bar">
+              <label class="select-control">
+                <span>Handwriting</span>
+                <select id="fontStyle">
+                  <option value="neat">Neat student</option>
+                  <option value="cursive">Easy cursive</option>
+                  <option value="casual">Casual notes</option>
+                </select>
+              </label>
+              <label class="select-control">
+                <span>Paper</span>
+                <select id="paperStyle">
+                  <option value="ruled">Classic ruled</option>
+                  <option value="blank">Blank</option>
+                  <option value="grid">Grid</option>
+                  <option value="dotted">Dotted</option>
+                </select>
+              </label>
+              <label class="select-control spacing-control">
+                <span>Line spacing</span>
+                <select id="lineSpacing">
+                  <option value="1.25">Tight</option>
+                  <option value="1.45" selected>Relaxed</option>
+                  <option value="1.7">Airy</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="ink-row">
+              <span class="ink-label">INK</span>
+              <button class="ink-swatch selected" type="button" data-color="#315f91" aria-label="Blue ink" title="Blue ink"></button>
+              <button class="ink-swatch" type="button" data-color="#343434" aria-label="Black ink" title="Black ink"></button>
+              <button class="ink-swatch" type="button" data-color="#c2504d" aria-label="Red ink" title="Red ink"></button>
+              <button class="ink-swatch" type="button" data-color="#43846a" aria-label="Green ink" title="Green ink"></button>
+              <label class="custom-ink" title="Choose a custom ink colour">
+                <input id="customColor" type="color" value="#315f91" aria-label="Custom ink colour" />
+                <span>＋</span>
+              </label>
+              <span class="ink-current" id="inkCurrent">Denim blue</span>
+            </div>
+
+            <div class="page-stage" id="pageStage">
+              <div class="page-wrap" id="pageWrap">
+                <canvas id="previewCanvas" aria-label="Live handwritten notebook page"></canvas>
+                <div class="empty-hint" id="emptyHint">Your handwritten page<br /><b>will appear here</b><span>✦</span></div>
+              </div>
+            </div>
+
+            <div class="page-navigation">
+              <button class="page-arrow" id="previousPage" type="button" aria-label="Previous page">←</button>
+              <span>PAGE <b id="pageNumber">1</b><i> / </i><b id="pageTotal">1</b></span>
+              <button class="page-arrow" id="nextPage" type="button" aria-label="Next page">→</button>
+            </div>
+            <div class="preview-bottom">
+              <span><span class="mini-check">✓</span> A4 · ready to print</span>
+              <span class="handmade-label">a little more <em>you</em></span>
+            </div>
+          </section>
+        </section>
+
+        <section class="bottom-actions">
+          <div class="action-copy">
+            <span class="action-sparkle">✳</span>
+            <span><b>Like how it looks?</b><small>Your notebook is ready to keep.</small></span>
+          </div>
+          <div class="action-buttons">
+            <button class="button button-outline" id="saveImageButton" type="button"><span>↧</span> Save image</button>
+            <button class="button button-outline" id="exportPdfButton" type="button"><span>▤</span> Export PDF</button>
+            <button class="button button-outline" id="printButton" type="button"><span>⎙</span> Print</button>
+            <button class="button button-primary" id="saveNotesButton" type="button"><span>♡</span> Save notes</button>
+          </div>
+        </section>
+        <p class="gentle-reminder">A personal study companion, not a shortcut for handwritten coursework. <span>✦</span></p>
+      </main>
+
+      <footer class="footer">
+        <span>scribbly notes <span class="footer-heart">♥</span> all yours, always.</span>
+        <span>made for slow mornings & big ideas</span>
+      </footer>
+    </div>
+
+    <dialog id="notesDialog" class="app-dialog">
+      <div class="dialog-heading">
+        <div><p class="section-kicker">YOUR LITTLE LIBRARY</p><h2>My notes</h2></div>
+        <button class="dialog-close" type="button" data-close-dialog aria-label="Close">×</button>
+      </div>
+      <div id="savedNotesList" class="saved-notes-list"></div>
+      <p class="dialog-footnote">Saved notes and settings stay in this browser on this device.</p>
+    </dialog>
+
+    <dialog id="settingsDialog" class="app-dialog settings-dialog">
+      <div class="dialog-heading">
+        <div><p class="section-kicker">A FEW LITTLE THINGS</p><h2>Settings & privacy</h2></div>
+        <button class="dialog-close" type="button" data-close-dialog aria-label="Close">×</button>
+      </div>
+      <p class="settings-copy">Scribbly Notes works right here in your browser. Your notes, fonts, and exports stay on your device — nothing is uploaded.</p>
+      <div class="settings-actions">
+        <button class="button button-outline" id="backupButton" type="button">Download JSON backup</button>
+        <label class="button button-outline import-button">Load JSON backup<input id="loadBackupInput" type="file" accept=".json,application/json" /></label>
+      </div>
+      <p class="import-error" id="importError" role="alert"></p>
+      <p class="dialog-footnote">For offline use, open the app once on localhost or HTTPS so its assets can be cached.</p>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
